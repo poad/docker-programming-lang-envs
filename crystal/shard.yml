@@ -1,0 +1,19 @@
+name: work
+version: 0.1.0
+
+# authors:
+#   - name <email@example.com>
+
+# description: |
+#   Short description of work
+
+dependencies:
+  crz:
+    github: dhruvrajvanshi/crz
+    version: ~> 1.0.0
+
+# development_dependencies:
+#   webmock:
+#     github: manastech/webmock.cr
+
+# license: MIT
