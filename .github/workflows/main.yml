@@ -1,0 +1,62 @@
+name: Docker build and push
+ 
+on:
+  push:
+    branches:
+    - master 
+  pull_request:
+    branches:
+      - master
+  schedule:
+    - cron:  '0 0 * * 2'
+
+jobs:
+  docker_build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        versions: [
+          { path: 'crystal', tag: 'crystal' },
+          { path: 'grpc', tag: 'grpc' },
+          { path: 'nim', tag: 'nim' },
+          { path: 'rust-protocol-buffers', base: 'rust-protocol-buffers' }
+        ]
+    steps:
+    - uses: actions/checkout@master
+      if: github.event_name == 'pull_request' && github.event_name != 'schedule'
+    - name: "Build  ${{ matrix.versions.tag }}"
+      if: github.event_name == 'pull_request' && github.event_name != 'schedule'
+      run: |
+        CUR=$(pwd) && \
+        cd ${{ matrix.versions.path }} &&
+        IMAGRE_NAME=poad/docker-programming-lang-envs:${{ matrix.versions.tag }} && \
+        docker build -t ${IMAGRE_NAME} . && \
+        cd ${CUR}
+
+  docker_push:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        versions: [
+          { path: 'crystal', tag: 'crystal' },
+          { path: 'grpc', tag: 'grpc' },
+          { path: 'nim', tag: 'nim' },
+          { path: 'rust-protocol-buffers', base: 'rust-protocol-buffers' }
+        ]
+    steps:
+    - uses: actions/checkout@master
+      if: github.event_name != 'pull_request' && github.event_name != 'schedule' && env.CHANGE_STATE != 'changed'
+    - name: Build ${{ matrix.dir_tag.tag }}
+      if: github.event_name != 'pull_request' && github.event_name != 'schedule' && env.CHANGE_STATE != 'changed'
+      run: |
+        CUR=$(pwd) && \
+        cd ${{ matrix.versions.path }} &&
+        IMAGRE_NAME=poad/docker-programming-lang-envs:${{ matrix.versions.tag }} && \
+        docker build -t ${IMAGRE_NAME} . && \
+        cd ${CUR}
+  - name: Push ${{ matrix.dir_tag.tag }}
+      if: github.event_name != 'pull_request' && github.event_name != 'schedule' && env.CHANGE_STATE != 'changed'
+      run: |
+        echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u poad --password-stdin && \
+        IMAGRE_NAME=poad/docker-programming-lang-envs:${{ matrix.versions.tag }} && \
+        docker push ${IMAGRE_NAME}
