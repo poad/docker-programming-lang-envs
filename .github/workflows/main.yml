@@ -16,9 +16,7 @@ jobs:
       matrix:
         versions: [
           { dir: 'crystal', tag: 'crystal' },
-          { dir: 'grpc', tag: 'grpc' },
-          { dir: 'nim', tag: 'nim' },
-          { dir: 'rust-protocol-buffers', tag: 'rust-protocol-buffers' }
+          { dir: 'nim', tag: 'nim' }
         ]
     runs-on: ubuntu-latest
     steps:
@@ -38,9 +36,7 @@ jobs:
       matrix:
         versions: [
           { dir: 'crystal', tag: 'crystal' },
-          { dir: 'grpc', tag: 'grpc' },
-          { dir: 'nim', tag: 'nim' },
-          { dir: 'rust-protocol-buffers', tag: 'rust-protocol-buffers' }
+          { dir: 'nim', tag: 'nim' }
         ]
     runs-on: ubuntu-latest
     steps:
