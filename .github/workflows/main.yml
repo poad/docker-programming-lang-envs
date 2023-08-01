@@ -4,7 +4,7 @@ on:
   push:
     branches:
     - main 
-  pull_request:
+  pull_request_target:
     branches:
       - main
   schedule:
@@ -12,13 +12,17 @@ on:
 
   workflow_dispatch:
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   configure:
     runs-on: ubuntu-latest
     if: github.actor != 'dependabot[bot]' && github.event.repository.name != '' && github.event.pull_request.number != 0
     steps:
       - name: Enable auto merge to pull request
-        uses: poad/github-pull-request-auto-merge-enable-action@v1.0.4
+        uses: poad/github-pull-request-auto-merge-enable-action@v1.0.5
         with:
           pull_request_number: ${{ github.event.pull_request.number }}
           github_token: ${{ secrets.PERSONAL_TOKEN_FOR_GITHUB_ACTIONS }}
