@@ -39,7 +39,7 @@ jobs:
         ]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       if: github.event_name == 'pull_request' && github.event_name != 'schedule'
     - name: "Build ${{ matrix.versions.tag }}"
       if: github.event_name == 'pull_request' && github.event_name != 'schedule'
@@ -59,7 +59,7 @@ jobs:
         ]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       if: github.event_name != 'pull_request' && github.event_name != 'schedule' && env.CHANGE_STATE != 'changed'
     - name: Build ${{ matrix.versions.tag }}
       if: github.event_name != 'pull_request' && github.event_name != 'schedule' && env.CHANGE_STATE != 'changed'
