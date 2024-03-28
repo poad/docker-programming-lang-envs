@@ -1,5 +1,5 @@
-ARG LLVM_VERSION=13
-ARG NIM_VERSION="1.4.8"
+ARG LLVM_VERSION=18
+ARG NIM_VERSION="2.0.2"
 
 FROM alpine:latest AS downloader
 
@@ -14,7 +14,7 @@ RUN apk --update add --no-cache --virtual .build-deps ca-certificates gnupg curl
 
 RUN ls
 
-FROM poad/docker-zsh:buster
+FROM poad/docker-zsh:latest
 
 LABEL maintainer="Kenji Saito<ken-yo@mbr.nifty.com>"
 

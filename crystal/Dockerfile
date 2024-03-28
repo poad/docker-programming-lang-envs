@@ -1,4 +1,4 @@
-ARG LLVM_VERSION=13
+ARG LLVM_VERSION=18
 
 FROM alpine:latest AS downloader
 
@@ -6,7 +6,7 @@ RUN apk --update add --no-cache --virtual .build-deps ca-certificates gnupg curl
  && curl -sL https://apt.llvm.org/llvm-snapshot.gpg.key > /tmp/llvm-snapshot.gpg.key \
  && curl -sL "https://keybase.io/crystal/pgp_keys.asc" > /tmp/pgp_keys.asc
 
-FROM poad/docker-zsh:buster AS base
+FROM poad/docker-zsh:latest AS base
 
 LABEL maintainer="Kenji Saito<ken-yo@mbr.nifty.com>"
 
