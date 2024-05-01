@@ -29,7 +29,7 @@ RUN apt-get update -qq \
  && echo "deb http://apt.llvm.org/buster/ llvm-toolchain-buster-${LLVM_VERSION} main" >> /etc/apt/sources.list.d/llvm-toolchain.list \
  && echo "deb https://dist.crystal-lang.org/apt crystal main" >> /etc/apt/sources.list.d/crystal.list \
  && apt-get update -qq \
- && apt-get install -qqy --no-install-recommends libssl-dev libxml2-dev libyaml-dev libgmp-dev libreadline-dev libz-dev git crystal \
+ && apt-get install -qqy --no-install-recommends libssl-dev libxml2-dev libyaml-dev libgmp-dev libreadline-dev libz-dev git crystal shards \
  && shards install \
  && apt-get autoremove --purge -qqy \
  && apt-get clean \
